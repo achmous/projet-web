@@ -1,0 +1,19 @@
+# GET http://localhost:3000/commentaires HTTP/1.1
+
+
+# GET http://localhost:3000/commentaires/1 HTTP/1.1
+
+
+# POST http://localhost:3000/commentaires HTTP/1.1
+# Content-Type: : application/json
+
+# {"id":132,"nom":"ddqdqdq  open-source e-tailers","email":"qdqsdqsq@fc2.com"}
+
+
+# PATCH http://localhost:3000/commentaires/17 HTTP/1.1
+# Content-Type: : application/json
+
+# {"id":132,"nom":"unleash open-source e-tailers","email":"medmonson9@fc2.com"}
+
+# DELETE  http://localhost:3000/commentaires/17 HTTP/1.1
+

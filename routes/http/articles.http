@@ -1,0 +1,18 @@
+# GET http://localhost:3000/articles HTTP/1.1
+
+
+# GET http://localhost:3000/articles/1 HTTP/1.1
+
+
+# POST http://localhost:3000/articles HTTP/1.1
+# Content-Type: : application/json
+
+# {"id":77,"titre":"Hadria","contenu":"Hillin","image":"http://dummyimage.com/170x100.png/cc0000/ffffff","createdAt":"9/30/2021","updatedAt":"4/19/2022","published":false}
+
+# PATCH http://localhost:3000/articles/17 HTTP/1.1
+# Content-Type: : application/json
+
+# {"id":1,"titre":"FHFHF","contenu":"Hillin","image":"http://dummyimage.com/170x100.png/cc0000/ffffff","createdAt":"9/30/2021","updatedAt":"4/19/2022","published":false}
+
+# DELETE  http://localhost:3000/articles/17 HTTP/1.1
+

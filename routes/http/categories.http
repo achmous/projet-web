@@ -1,0 +1,18 @@
+# GET http://localhost:3000/categories HTTP/1.1
+
+
+# GET http://localhost:3000/categories/1 HTTP/1.1
+
+
+# POST http://localhost:3000/categories HTTP/1.1
+# Content-Type: : application/json
+
+# {"id":63,"nom":"Fire Sprinkler System"}
+
+# PATCH http://localhost:3000/categories/17 HTTP/1.1
+# Content-Type: : application/json
+
+# {"id":63,"nom":"Fire qsdqdddqdq System"}
+
+# DELETE  http://localhost:3000/categories/17 HTTP/1.1
+

@@ -1,0 +1,18 @@
+# GET http://localhost:3000/users HTTP/1.1
+
+
+# GET http://localhost:3000/users/1 HTTP/1.1
+
+
+# POST http://localhost:3000/users HTTP/1.1
+# Content-Type: : application/json
+
+# {"id":77,"nom":"Curt","email":"ckonertz5@hhs.gov","role":"Project Manager"},
+
+# PATCH http://localhost:3000/users/17 HTTP/1.1
+# Content-Type: : application/json
+
+# {"id":77,"nom":"qqdqdq","email":"ckosdz5@hhs.gov","role":"Projsc Manager"},
+
+# DELETE  http://localhost:3000/users/17 HTTP/1.1
+
