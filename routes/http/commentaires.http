@@ -1,4 +1,4 @@
-# GET http://localhost:3000/commentaires HTTP/1.1
+GET http://localhost:3000/commentaires HTTP/1.1
 
 
 # GET http://localhost:3000/commentaires/1 HTTP/1.1
@@ -17,3 +17,4 @@
 
 # DELETE  http://localhost:3000/commentaires/17 HTTP/1.1
 
+ 

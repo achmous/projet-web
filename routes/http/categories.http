@@ -1,4 +1,4 @@
-# GET http://localhost:3000/categories HTTP/1.1
+GET http://localhost:3000/categories HTTP/1.1
 
 
 # GET http://localhost:3000/categories/1 HTTP/1.1
@@ -16,3 +16,4 @@
 
 # DELETE  http://localhost:3000/categories/17 HTTP/1.1
 
+ 
