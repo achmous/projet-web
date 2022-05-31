@@ -2,11 +2,9 @@ var express = require('express');
 var router = express.Router();
 const { PrismaClient } = require('@prisma/client')
 var prisma = new PrismaClient
- 
-
 /* GET categories listing. */
-router.get('/', function(req, res) {
- 
+router.get('/', async function (req, res, next) {
+
     const categories = await prisma.categorie.findMany({
         skip: parseInt(req.query.skip),
         take: parseInt(req.query.take),
@@ -16,7 +14,8 @@ router.get('/', function(req, res) {
     res.json(categories);
 });
 
-router.get('/:id',  (req, res) => {
+// GET one by id
+router.get('/:id', async function (req, res, next) {
     const categorie = await prisma.categorie.findUnique(
 
         {
@@ -32,24 +31,27 @@ router.get('/:id',  (req, res) => {
     }
     else {
         res.status(404);
-        res.json({ message: 'NOT_FOUND' });
+        res.json({ message: 'NOT FOUND' });
     }
 });
 
-router.post('/',(req, res) => {
+// ADD categorie
+router.post('/', async function (req, res, next) {
     const categorie = req.body
-    console.log(categorie);
-        const category = await prisma.categorie.create({
-            data: {
-                nom: categorie.nom
-            },
-        })
-    
-        res.status(200);
-        res.json(category);
+console.log(categorie);
+    const art = await prisma.categorie.create({
+        data: {
+            nom: categorie.nom
+        },
+    })
+
+    res.status(200);
+    res.json(art);
 });
-router.patch('/:id', (req, res) => {
-  
+
+
+// UPDATE categorie
+router.patch('/', async function (req, res, next) {
     const body = req.body
     console.log(body);
     const categorie = await prisma.categorie.update({
@@ -66,17 +68,32 @@ router.patch('/:id', (req, res) => {
     res.status(200);
     res.json(categorie);
 });
-router.delete('/:id', (req, res) => {
+// DELETE categorie
+router.delete('/:id', async function (req, res, next) {
+
+
     const categorie = await prisma.categorie.delete({
         where: {
             id: parseInt(req.params.id),
         },
     })
     res.status(200);
-    res.json({message: ` ${categorie.id} DELETED`});
+    res.json({message: `Deleted ${categorie.id}`});
 });
 
 
+// find all
+router.get('/find/all', async function (req, res, next) {
 
+    const categories = await prisma.categorie.findMany( {
+        include:{
+          
+                articles:true
+             
+        }
+    })
 
+    res.status(200);
+    res.json(categories);
+});
 module.exports = router;

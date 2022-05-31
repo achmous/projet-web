@@ -2,11 +2,8 @@ var express = require('express');
 var router = express.Router();
 const { PrismaClient } = require('@prisma/client')
 var prisma = new PrismaClient
-
-
 /* GET articles listing. */
-router.get('/', function (req, res) {
-
+router.get('/', async function (req, res, next) {
 
     const articles = await prisma.article.findMany({
         skip: parseInt(req.query.skip),
@@ -15,13 +12,10 @@ router.get('/', function (req, res) {
 
     res.status(200);
     res.json(articles);
-
-
-
-
 });
 
-router.get('/:id', (req, res) => {
+// GET one by id
+router.get('/:id', async function (req, res, next) {
     const article = await prisma.article.findUnique(
 
         {
@@ -37,27 +31,31 @@ router.get('/:id', (req, res) => {
     }
     else {
         res.status(404);
-        res.json({ message: 'NOT_FOUND' });
+        res.json({ message: 'NOT FOUND' });
     }
 });
 
-router.post('/', (req, res) => {
+// ADD article
+router.post('/', async function (req, res, next) {
     const article = req.body
     console.log(article);
-    const article_ = await prisma.article.create({
+    const art = await prisma.article.create({
         data: {
             titre: article.titre,
             contenu: article.contenu,
+            // l'image sera encodé en base64
             image: article.image,
             published: article.published,
         },
     })
 
     res.status(200);
-    res.json(article_);
+    res.json(art);
 });
-router.patch('/:id', (req, res) => {
 
+
+// UPDATE ARTICLE
+router.patch('/', async function (req, res, next) {
     const body = req.body
     console.log(body);
     const article = await prisma.article.update({
@@ -77,7 +75,8 @@ router.patch('/:id', (req, res) => {
     res.status(200);
     res.json(article);
 });
-router.delete('/:id', (req, res) => {
+// DELETE article
+router.delete('/:id', async function (req, res, next) {
 
 
     const us = await prisma.article.delete({
@@ -86,7 +85,17 @@ router.delete('/:id', (req, res) => {
         },
     })
     res.status(200);
-    res.json({ message: ` ${us.id}  DELETED` });
-});
+    res.json({ message: `Deleted ${us.id}` });
 
+});
+router.get('/new/:top', async function (req, res, next) {
+    const articles = await prisma.article.findMany({
+        take: parseInt(req.params.top),
+        orderBy: {
+            createdAt: 'desc',
+        }
+    })
+    res.status(200);
+    res.json(articles);
+});
 module.exports = router;

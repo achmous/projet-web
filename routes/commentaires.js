@@ -2,11 +2,9 @@ var express = require('express');
 var router = express.Router();
 const { PrismaClient } = require('@prisma/client')
 var prisma = new PrismaClient
-
- 
 /* GET commentaires listing. */
-router.get('/', function(req, res) {
- 
+router.get('/', async function (req, res, next) {
+
     const commentaires = await prisma.commentaire.findMany({
         skip: parseInt(req.query.skip),
         take: parseInt(req.query.take),
@@ -16,7 +14,8 @@ router.get('/', function(req, res) {
     res.json(commentaires);
 });
 
-router.get('/:id',  (req, res) => {
+// GET one by id
+router.get('/:id', async function (req, res, next) {
     const commentaire = await prisma.commentaire.findUnique(
 
         {
@@ -32,25 +31,29 @@ router.get('/:id',  (req, res) => {
     }
     else {
         res.status(404);
-        res.json({ message: 'NOT_FOUND' });
+        res.json({ message: 'NOT FOUND' });
     }
 });
 
-router.post('/',(req, res) => {
+// ADD commentaire
+router.post('/', async function (req, res, next) {
     const commentaire = req.body
-    console.log(commentaire);
-        const comm = await prisma.commentaire.create({
-            data: {
-               
-                email: commentaire.email,
-                contenu: commentaire.contenu 
-            },
-        })
-    
-        res.status(200);
-        res.json(comm);
+console.log(commentaire);
+    const comm = await prisma.commentaire.create({
+        data: {
+           
+            email: commentaire.email,
+            contenu: commentaire.contenu 
+        },
+    })
+
+    res.status(200);
+    res.json(comm);
 });
-router.patch('/:id', (req, res) => {
+
+
+// UPDATE commentaire
+router.patch('/', async function (req, res, next) {
     const body = req.body
     console.log(body);
     const commentaire = await prisma.commentaire.update({
@@ -68,16 +71,16 @@ router.patch('/:id', (req, res) => {
     res.status(200);
     res.json(commentaire);
 });
-router.delete('/:id', (req, res) => {
- 
-  
+// DELETE commentaire
+router.delete('/:id', async function (req, res, next) {
+
+
     const us = await prisma.commentaire.delete({
         where: {
             id: parseInt(req.params.id),
         },
     })
     res.status(200);
-    res.json("DELETED");
+    res.json(us);
 });
-
 module.exports = router;
