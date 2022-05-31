@@ -83,12 +83,14 @@ router.delete('/:id', async function (req, res, next) {
 
 
 // find all
-router.get('/find/all', async function (req, res, next) {
+router.get('/find/all', async (req, res, next) => {
 
     const categories = await prisma.categorie.findMany( {
         include:{
           
-                articles:true
+                
+                _count : true,
+                CategoriesArticle: true
              
         }
     })

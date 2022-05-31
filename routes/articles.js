@@ -88,7 +88,7 @@ router.delete('/:id', async function (req, res, next) {
     res.json({ message: `Deleted ${us.id}` });
 
 });
-router.get('/new/:top', async function (req, res, next) {
+router.get('/top/:top', async function (req, res, next) {
     const articles = await prisma.article.findMany({
         take: parseInt(req.params.top),
         orderBy: {
